@@ -1,9 +1,13 @@
+# TODO
+
 TODO is a playground app written to learn and demonstrate AngularJS features.
 
 
-How to start:
+## How to start:
 
-1. Checkout app with: git clone https://github.com/arturopala/todo.git todo
+1. Checkout app with: 
+
+```git clone https://github.com/arturopala/todo.git todo```
 
 2. Install node.js
 
