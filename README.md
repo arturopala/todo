@@ -20,4 +20,4 @@ This is a client-side, javascript application doing some calls to the trivial ba
 
 5. Start the TODO app server: ```node server.js```
 
-6. Open app in the browser: http://localhost:8888/
+6. Open app in the browser: (http://localhost:8888/)
