@@ -2,8 +2,11 @@
 
 TODO is a playground app written to learn and demonstrate AngularJS features.
 
+## Overview
 
-## How to start:
+This is a client-side, javascript application doing some calls to the trivial backend, which actually has been implemented using node.js 
+
+## How to start local backend server:
 
 1. Checkout app with: 
 
@@ -13,8 +16,8 @@ TODO is a playground app written to learn and demonstrate AngularJS features.
 
 3. Go to the app directory
 
-4. Install server dependencies with: sudo npm install
+4. Install server dependencies with: ```sudo npm install```
 
-5. Start the TODO app: node server.js
+5. Start the TODO app server: ```node server.js```
 
-6. Open page in the browser: http://localhost:8888/
+6. Open app in the browser: http://localhost:8888/
