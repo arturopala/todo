@@ -4,46 +4,52 @@
     <title>TODO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/core.min.css">
+    <style>
+        .font-green {color: green;}
+        input[disabled] {background-color: white;}
+    </style>
 </head>
 <body class="page-wrapper" ng-cloak>
 
-    <header class="background-brandorange align-center padding-xl" ng-controller="HeaderController">
+    <header ng-controller="HeaderController" class="background-brandorange align-center padding-xl">
         <div class="font-xxl font-white">TO <span class="fa fa-check-square-o"/> DO</div>
         <div>
         	<span ng-show="status.flag==='EMPTY'">add your tasks to the list</span>
-        	<span ng-show="status.flag==='ABOUT_TO_START'">start the first step</span>
-        	<span ng-show="status.flag==='IN_PROGRESS'">{{status.notDone}} tasks left, {{status.all - status.notDone}} completed</span>
+        	<span ng-show="status.flag==='ABOUT_TO_START'">do the first step</span>
+            <span ng-show="status.flag==='IN_PROGRESS_LOW'">so far {{status.all - status.notDone}} completed but {{status.notDone}} left</span>
+        	<span ng-show="status.flag==='IN_PROGRESS_MIDDLE'">{{status.all - status.notDone}} completed, {{status.notDone}} left</span>
+            <span ng-show="status.flag==='IN_PROGRESS_HIGH'">only {{status.notDone}} left and {{status.all - status.notDone}} completed</span>
         	<span ng-show="status.flag==='ONE_LEFT'">just one task left, go on!</span>
-        	<span ng-show="status.flag==='COMPLETED'">completed, you did it!</span>
+        	<span ng-show="status.flag==='COMPLETED'" class="font-white">all completed, you did it!</span>
         </div>
     </header>
 
-    <div ng-controller="AddTasksController" class="">
+    <div ng-controller="TasksController" class="">
         <form name="addTaskForm" class="form form-theme-white">
             <div class="grid gutter-xs">
                 <div class="grid-item four-fifths palm-one-whole">
-                    <input 
-                    	name="messageInput" type="text" placeholder="task's short title" 
-                    	ng-model="message" class="input-text rounded" required 
-                    	ng-class="{'error':addTaskForm.messageInput.$invalid && addTaskForm.messageInput.$dirty}"/>
+                    <input id="taskTitleInput"
+                    	name="taskTitleInput" type="text" placeholder="task's short title" 
+                    	ng-model="taskTitle" class="input-text rounded font-l" required autofocus 
+                    	ng-class="{'error':addTaskForm.taskTitleInput.$invalid && addTaskForm.taskTitleInput.$dirty}"/>
                 </div>
                 <div class="grid-item one-fifth align-right palm-one-whole">
                     <button ng-click="addTask()" class="button-lightblue one-whole" ng-disabled="addTaskForm.$invalid"><span class="fa fa-plus"/> Add &nbsp;</button>
                 </div>
             </div>
         </form>
-    </div>
-    <div ng-controller="ListTasksController" class="grid gutter-xs margin-xs">
-        <div ng-repeat="task in tasks" class="grid-item one-whole">
-            <div class="grid gutter-xs border-bottom border-lightblue">
-                <div class="grid-item one-tenth">
-                    <a ng-click="task.done = !task.done" class=""><span class="fa fa-2x" ng-class="{'fa-check-square-o font-confirm':task.done,'fa-square-o font-warning':!task.done}"/></a>
-                </div>
-                <div class="grid-item eight-tenths font-l align-middle">
-                    <span class="font-ellipsis" ng-class="{'font-strike font-light' : task.done,'font-regular':!task.done}">{{$index+1}}. {{task.title}}</span>
-                </div>
-                <div class="grid-item one-tenth align-right">
-                    <a ng-click="removeTask($index)" class=""><span class="fa fa-times fa-2x font-light"/></a>
+        <div class="grid gutter-xs margin-xs">
+            <div ng-repeat="task in tasks" class="grid-item one-whole">
+                <div class="grid gutter-xs border-bottom border-lightblue">
+                    <div class="grid-item one-tenth">
+                        <a ng-click="task.done = !task.done" class=""><span class="fa fa-2x" ng-class="{'fa-check-square-o font-green':task.done,'fa-square-o font-brandorange': !task.done}"/></a>
+                    </div>
+                    <div class="grid-item eight-tenths font-l align-middle" ng-click="editOrCopyTask($index)">
+                        <span class="font-ellipsis" ng-class="{'font-strike font-light' : task.done,'font-regular':!task.done}">{{$index+1}}. <input type="text" ng-model="task.title" ng-disabled="task.done" class="font-l"/></span>
+                    </div>
+                    <div class="grid-item one-tenth align-right">
+                        <a ng-click="removeTask($index)" class=""><span class="fa fa-times fa-2x font-light"/></a>
+                    </div>
                 </div>
             </div>
         </div>

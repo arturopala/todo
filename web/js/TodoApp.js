@@ -30,10 +30,14 @@ angular.module('TodoApp',[])
 			return 'EMPTY';
 		} else if (notDone>1 && notDone === all){
 			return 'ABOUT_TO_START';
-		} else if (notDone === 1 && notDone < all){
+		} else if (notDone>1 && notDone/all < 0.35){
+			return 'IN_PROGRESS_HIGH';
+		} else if (notDone>1 && notDone/all >= 0.65){
+			return 'IN_PROGRESS_LOW';
+		} else if (notDone>1 && notDone/all < 0.65){
+			return 'IN_PROGRESS_MIDDLE';
+		} else if (notDone === 1){
 			return 'ONE_LEFT';
-		} else if (notDone>1 && notDone < all){
-			return 'IN_PROGRESS';
 		} else {
 			return "COMPLETED"
 		}
@@ -46,7 +50,8 @@ angular.module('TodoApp',[])
 			TasksService.saveTasks();
 			$rootScope.$broadcast('tasksListChanged');
 		}, true
-		);
+	);
+
 	TasksService.loadTasks();
 }])
 .controller('HeaderController', ['$scope','$filter','Model',function($scope,$filter,Model) {
@@ -54,18 +59,29 @@ angular.module('TodoApp',[])
 		$scope.status = Model.status;
 	});
 }])
-.controller('AddTasksController', ['$scope','Model',function($scope,Model) {
+.controller('TasksController', ['$scope','Model',function($scope,Model) {
 	$scope.addTask = function(){
-		Model.tasks.push({title:$scope.message});
-		$scope.message = '';
+		var tasks = $scope.taskTitle.split(',')
+		angular.forEach(tasks, function(value, key){
+			Model.tasks.push({title:value, date: new Date()});
+		})
+		$scope.taskTitle = '';
+		$scope.addTaskForm.taskTitleInput.$dirty = false;
 	};
-}])
-.controller('ListTasksController', ['$scope','Model',function($scope,Model) {
+
 	$scope.$on('tasksListChanged',function(){
 		$scope.tasks = Model.tasks;
 	});
+
 	$scope.removeTask = function(index){
 		Model.tasks.splice(index,1);
+	};
+
+	$scope.editOrCopyTask = function(index){
+		if(Model.tasks[index].done){
+			$scope.taskTitle = Model.tasks[index].title;
+			document.getElementById('taskTitleInput').focus();
+		}
 	};
 }])
 ;
