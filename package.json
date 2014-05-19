@@ -5,9 +5,10 @@
   "author": {
     "name": "Artur Opala",
     "email": "opala.artur@gmail.com"
-  }
-  "private": true,
+  },
+  "private": "true",
   "dependencies": {
-    "express": "3.x"
+    "express": "3.x",
+    "body-parser":"1.2.x"
   }
 }
