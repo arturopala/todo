@@ -1,0 +1,13 @@
+{
+  "name": "todo-app",
+  "description": "todo app written to learn angularjs",
+  "version": "0.1.0",
+  "author": {
+    "name": "Artur Opala",
+    "email": "opala.artur@gmail.com"
+  }
+  "private": true,
+  "dependencies": {
+    "express": "3.x"
+  }
+}
