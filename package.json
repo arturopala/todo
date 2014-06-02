@@ -20,6 +20,7 @@
     "karma-firefox-launcher": "^0.1.x",
     "karma-html-reporter": "^0.2.x",
     "karma-jasmine": "~0.2.x",
+    "karma-js-coverage": "^0.4.0",
     "karma-phantomjs-launcher": "^0.1.x",
     "karma-story-reporter": "^0.2.x"
   }

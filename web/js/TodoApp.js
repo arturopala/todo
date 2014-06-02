@@ -12,6 +12,7 @@ angular.module('TodoApp',[])
 		loadTasks: function(){
 			return $http.get('/tasks').success(function(tasks){
 				Model.tasks = tasks;
+				console.log('loadTasks');
 			});
 		},
 		saveTasks: function(){

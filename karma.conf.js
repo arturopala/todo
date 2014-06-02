@@ -31,14 +31,25 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-    
+        // source files, that you wanna generate coverage for
+        // do not include tests or libraries
+        // (these files will be instrumented by Istanbul)
+        'web/js/TodoApp.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress','dots','story','html'],
+    reporters: ['progress','dots','story','html','coverage'],
+
+    // optionally, configure the reporter
+    coverageReporter: {
+        reporters:[
+            {type : 'html', dir : 'coverage/'},
+            {type: 'text-summary'}
+        ]
+    },
 
 
     // web server port
@@ -61,7 +72,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher ,'Chrome','Firefox'
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS','Chrome','Firefox'],
 
 
     // Continuous Integration mode
@@ -72,8 +83,10 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
+      'karma-firefox-launcher',
       'karma-html-reporter',
-      'karma-story-reporter'
+      'karma-story-reporter',
+      'karma-js-coverage'
     ]
   });
 };
